@@ -1,0 +1,63 @@
+{
+  "name": "@landrop/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LanDrop Clip macOS receiver app",
+  "author": "LanDrop Clip",
+  "type": "module",
+  "main": "dist/main.cjs",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "npm run build && electron dist/main.cjs",
+    "start": "electron dist/main.cjs",
+    "dist:mac": "npm run build && electron-builder --mac zip --publish never && mkdir -p release && cp \"release-builder/LanDrop Clip-1.0.0-arm64-mac.zip\" \"release/LanDrop-Clip-mac-arm64.zip\"",
+    "dist:mac:legacy": "npm run build && electron-packager . \"LanDrop Clip\" --platform=darwin --arch=arm64 --out=release --overwrite --prune=true --app-version=1.0.0 --asar && ditto -c -k --sequesterRsrc --keepParent \"release/LanDrop Clip-darwin-arm64/LanDrop Clip.app\" \"release/LanDrop-Clip-mac-arm64.zip\"",
+    "dist:ci:mac": "npm run dist:mac",
+    "dist:win": "npm run build && electron-builder --win nsis portable --x64 --publish never",
+    "dist:linux": "npm run build && electron-builder --linux AppImage deb --x64 --publish never"
+  },
+  "devDependencies": {
+    "7zip-bin": "^5.2.0",
+    "electron": "31.7.7",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2",
+    "esbuild": "^0.25.9"
+  },
+  "build": {
+    "appId": "com.landrop.clip",
+    "productName": "LanDrop Clip",
+    "asar": true,
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
+    "nodeGypRebuild": false,
+    "directories": {
+      "output": "release-builder"
+    },
+    "files": [
+      "dist/main.cjs",
+      "dist/main.cjs.map",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "dist/main.cjs"
+    },
+    "mac": {
+      "target": [
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility"
+    }
+  }
+}

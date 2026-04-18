@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LanDrop Clip</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">LAN Transfer Hub</p>
+          <h1>LanDrop Clip</h1>
+          <p id="status-text" class="status-text">Checking the local server…</p>
+        </div>
+        <div class="hero-actions">
+          <button id="create-session" class="primary">Create room</button>
+          <button id="refresh" class="ghost">Refresh</button>
+        </div>
+      </section>
+
+      <section id="helper-warning" class="panel helper-panel hidden">
+        <div class="panel-header">
+          <div>
+            <h2>Mac Helper Required</h2>
+            <p class="subtle">This extension needs the LanDrop Clip local helper running on the same Mac.</p>
+          </div>
+        </div>
+        <div class="helper-steps">
+          <p>Start the helper/server, then click refresh.</p>
+          <code id="helper-url">http://127.0.0.1:8787/api/health</code>
+        </div>
+        <div class="button-grid helper-actions">
+          <button id="retry-helper" class="primary">Retry helper</button>
+          <button id="copy-helper-url" class="ghost">Copy health URL</button>
+        </div>
+      </section>
+
+      <section class="panel info-grid">
+        <div>
+          <span class="label">Local IP</span>
+          <strong id="local-ip">-</strong>
+        </div>
+        <div>
+          <span class="label">Room Code</span>
+          <strong id="room-code">-</strong>
+        </div>
+        <div>
+          <span class="label">People</span>
+          <strong id="people-count">-</strong>
+        </div>
+        <div>
+          <span class="label">Expires</span>
+          <strong id="countdown">-</strong>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Transfer room</h2>
+            <p id="share-url" class="subtle">Create a room to generate a LAN link.</p>
+          </div>
+          <span id="realtime-state" class="pill">Idle</span>
+        </div>
+        <canvas id="qr-code" width="160" height="160" aria-label="Share QR code"></canvas>
+        <div class="button-grid">
+          <button id="copy-url" class="primary">Copy room link</button>
+          <button id="open-dashboard" class="ghost">Open receiver</button>
+        </div>
+        <details class="utility-menu">
+          <summary>More room tools</summary>
+          <div class="utility-sheet">
+            <button id="copy-room-code" class="ghost">Copy code</button>
+            <button id="open-join-page" class="ghost">Open join page</button>
+            <button id="clear-session" class="ghost danger">Clear room data</button>
+          </div>
+        </details>
+        <p id="network-warning" class="notice hidden"></p>
+        <div id="participant-list" class="participant-list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Drop dock</h2>
+            <p class="subtle">Paste links or text, attach files, and ship in one send.</p>
+          </div>
+        </div>
+        <label class="composer-label" for="composer-input">Message or link</label>
+        <textarea id="composer-input" class="composer-input composer-area" placeholder="Paste a link, note, or text"></textarea>
+        <p id="composer-hint" class="subtle">Nothing queued yet.</p>
+        <input id="file-input" class="hidden" type="file" multiple />
+        <ul id="selected-files" class="history-list hidden"></ul>
+        <div class="button-grid">
+          <button id="send-content" class="primary">Send</button>
+          <button id="attach-files" class="ghost">Attach files</button>
+          <button id="use-current-tab" class="ghost">Use current tab</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Transfer stream</h2>
+            <p class="subtle">Incoming and outgoing room transfers in one timeline.</p>
+          </div>
+        </div>
+        <ul id="activity-list" class="history-list"></ul>
+      </section>
+    </main>
+
+    <template id="activity-empty">
+      <li class="empty-row">No activity yet.</li>
+    </template>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

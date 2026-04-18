@@ -1,0 +1,78 @@
+name: Desktop Build Matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared + server + desktop bundle
+        run: npm run build:desktop
+
+      - name: Build macOS desktop artifact
+        if: matrix.os == 'macos-latest'
+        run: npm run desktop:dist:ci:mac
+
+      - name: Build Windows desktop artifact
+        if: matrix.os == 'windows-latest'
+        run: npm run desktop:dist:win
+
+      - name: Build Linux desktop artifact
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run desktop:dist:linux
+
+      - name: Upload desktop artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: landrop-desktop-${{ matrix.os }}
+          path: |
+            desktop/release-builder/**/*
+          if-no-files-found: error
+
+  build-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build extension release artifact
+        run: npm run release:extension
+
+      - name: Upload extension artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: landrop-extension
+          path: |
+            extension/release/*.zip
+          if-no-files-found: error

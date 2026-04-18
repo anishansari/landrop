@@ -1,0 +1,32 @@
+{
+  "name": "landrop-clip",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LanDrop Clip local-only sharing MVP for Mac and Android on the same LAN.",
+  "workspaces": [
+    "shared",
+    "server",
+    "extension",
+    "desktop"
+  ],
+  "scripts": {
+    "dev": "concurrently -n shared,server,extension -c blue,green,magenta \"npm run dev -w shared\" \"npm run dev -w server\" \"npm run dev -w extension\"",
+    "receiver:dev": "concurrently -n shared,server -c blue,green \"npm run dev -w shared\" \"npm run dev:receiver -w server\"",
+    "build": "npm run build -w shared && npm run build -w server && npm run build -w extension",
+    "build:desktop": "npm run build -w shared && npm run build -w server && npm run build -w desktop",
+    "desktop:dev": "npm run dev -w desktop",
+    "desktop:start": "npm run start -w desktop",
+    "desktop:dist:mac": "npm run dist:mac -w desktop",
+    "desktop:dist:win": "npm run dist:win -w desktop",
+    "desktop:dist:linux": "npm run dist:linux -w desktop",
+    "desktop:dist:ci:mac": "npm run dist:ci:mac -w desktop",
+    "release:extension": "npm run build -w shared && npm run build -w extension && npm run package -w extension",
+    "test": "npm run test -w server",
+    "start": "npm run start -w server",
+    "receiver": "npm run build -w shared && npm run build -w server && npm run receiver -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  }
+}

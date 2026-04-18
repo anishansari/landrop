@@ -1,0 +1,19 @@
+{
+  "name": "@landrop/extension",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json && node build.mjs",
+    "dev": "node build.mjs --watch",
+    "package": "node package-release.mjs"
+  },
+  "dependencies": {
+    "@landrop/shared": "1.0.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.24",
+    "@types/qrcode": "^1.5.5",
+    "esbuild": "^0.25.9"
+  }
+}
