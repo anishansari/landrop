@@ -14,7 +14,7 @@
     "dist:mac:legacy": "npm run build && electron-packager . \"LanDrop Clip\" --platform=darwin --arch=arm64 --out=release --overwrite --prune=true --app-version=1.0.0 --asar && ditto -c -k --sequesterRsrc --keepParent \"release/LanDrop Clip-darwin-arm64/LanDrop Clip.app\" \"release/LanDrop-Clip-mac-arm64.zip\"",
     "dist:ci:mac": "npm run dist:mac",
     "dist:win": "npm run build && electron-builder --win nsis portable --x64 --publish never",
-    "dist:linux": "npm run build && electron-builder --linux AppImage deb --x64 --publish never"
+    "dist:linux": "npm run build && electron-builder --linux AppImage --x64 --publish never"
   },
   "devDependencies": {
     "7zip-bin": "^5.2.0",
@@ -54,8 +54,7 @@
     },
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
+        "AppImage"
       ],
       "category": "Utility"
     }

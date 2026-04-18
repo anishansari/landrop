@@ -254,7 +254,7 @@ For public release, sign and notarize the app so users can open it with a normal
 Desktop packaging is now cross-platform:
 
 - Windows: NSIS installer + portable EXE
-- Linux: AppImage + DEB
+- Linux: AppImage
 - macOS: ZIP
 
 Build commands:
@@ -324,7 +324,7 @@ Download and install by OS:
   - Download `LanDrop Clip Setup <version>.exe` (installer) or `LanDrop Clip <version>.exe` (portable)
   - Run installer OR portable exe directly
 - Linux:
-  - Download `.AppImage` for portable run OR `.deb` for Debian/Ubuntu install
+  - Download `.AppImage` for portable run
   - For AppImage: `chmod +x <file>.AppImage` then run it
 
 The extension zip is also attached in release assets for Chrome Web Store upload or internal distribution.

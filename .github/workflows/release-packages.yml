@@ -94,7 +94,6 @@ jobs:
           name: release-linux
           path: |
             desktop/release-builder/*.AppImage
-            desktop/release-builder/*.deb
           if-no-files-found: error
 
   build-extension:
