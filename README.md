@@ -309,6 +309,38 @@ After push:
 
 This gives you Mac/Windows/Linux desktop packages plus the extension zip without requiring local Windows/Linux machines.
 
+## User Downloads And Installation
+
+For end users, share your GitHub Releases page:
+
+- `https://github.com/anishansari/landrop/releases/latest`
+
+Download and install by OS:
+
+- macOS:
+  - Download `LanDrop-Clip-mac-arm64.zip`
+  - Unzip, drag app to Applications, open app
+- Windows:
+  - Download `LanDrop Clip Setup <version>.exe` (installer) or `LanDrop Clip <version>.exe` (portable)
+  - Run installer OR portable exe directly
+- Linux:
+  - Download `.AppImage` for portable run OR `.deb` for Debian/Ubuntu install
+  - For AppImage: `chmod +x <file>.AppImage` then run it
+
+The extension zip is also attached in release assets for Chrome Web Store upload or internal distribution.
+
+## Automatic Release Publishing
+
+A tag-based release workflow is included at:
+
+- `.github/workflows/release-packages.yml`
+
+When you push a tag like `v1.0.1`, GitHub will:
+
+1. Build macOS/Windows/Linux desktop packages
+2. Build extension release zip
+3. Create a GitHub Release and attach all assets automatically
+
 ## Other Ways To Build Windows/Linux Without Owning Those Machines
 
 - Use GitHub Actions matrix (already configured here) - easiest and cheapest to start.
